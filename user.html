@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}self management Home{% endblock %}
+{% block content %}
+    <h2>Home</h2>
+    <p>Welcome, {{ name }}!</p>
+    <h3>今日の目標を決定しましょう。</h3>
+    <form action="/goal" method="POST">
+      <select name="goal">
+        {% for i in range(1,19) %}
+        <option value="{{i}}">{{i}}h</option>
+        {% endfor %}
+      </select>
+      <button type="submit" class="dicision">決定</button>
+    </form>
+    {% if goal %}
+        <h2>今日の目標は{{goal.time}}時間です。</h2>
+    {% endif %}
+    <form method="POST">
+        {{form.hidden_tag()}}
+        <label>やったこと：{{form.todo()}}</label>
+        <br>
+        <label>やった時間(h)：{{form.time()}}</label>
+        {% if form.time.errors %}
+            <p class="er">{{error}}</p>
+        {% endif %}
+        <br>
+
+        {{ form.submit() }}
+    </form>
+
+    {% for d  in do %}
+        <p>{{d.todo}}:{{d.time}}h</p>
+        <a href="/delete/{{d.id}}" class="del">削除</a>
+    {% endfor %}
+    <a href="/window" class="result">今日の結果を見る</a>
+{% endblock %}
