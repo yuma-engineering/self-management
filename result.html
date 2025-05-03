@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}self management{% endblock %}
+{% block content %}
+  <a href="/home">ホームへ</a>
+  {% if goal %}
+    <h2>今日の目標は{{goal.time}}時間です。</h2>
+  {% endif %}
+  <p>今日の合計は{{sum}}でした。</p>
+  <p>{{message}}</p>
+
+<h2>今週の合計: {{ this_week }} h</h2>
+<h2>先週の合計: {{ last_week }} h</h2>
+
+{% if diff > 0 %}
+  <p>先週より {{ diff }} 時間 増えました！</p>
+{% elif diff < 0 %}
+  <p>先週より {{ -diff }} 時間 減りました</p>
+{% else %}
+  <p>先週と同じ時間でした！</p>
+{% endif %}
+
+
+
+{% endblock %}
